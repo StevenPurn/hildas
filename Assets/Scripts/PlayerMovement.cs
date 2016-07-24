@@ -2,8 +2,9 @@
 using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
-	public float ROTATION_MULTIPLIER = 40f;
-	public float SPEED = 30f;
+	public float ROTATION_MULTIPLIER = 180f;
+	public float SPEED = 6f;
+	public float CurrentSpeed = 0;
 
 	// Use this for initialization
 	void Start () {
@@ -20,6 +21,11 @@ public class PlayerMovement : MonoBehaviour {
 		if (Input.GetButton ("Vertical") && Input.GetAxis("Vertical") > 0) {
 			var angle = transform.rotation.z;
 			transform.Translate(0, SPEED * Time.deltaTime, 0);
+
+			CurrentSpeed = SPEED;
+		}
+		else {
+			CurrentSpeed = 0;
 		}
 	}
 }
