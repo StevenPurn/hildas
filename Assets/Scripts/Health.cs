@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Health : MonoBehaviour {
 
@@ -12,7 +11,6 @@ public class Health : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
-			
 	}
 
 	public void TakeDamage(int damageReceived){
@@ -24,9 +22,5 @@ public class Health : MonoBehaviour {
 
 	public void Death(){
 		Destroy (gameObject);
-	}
-
-	public void OnTriggerEnter2D(Collider2D other){
-		Debug.Log ("Collided from Enemy");
 	}
 }

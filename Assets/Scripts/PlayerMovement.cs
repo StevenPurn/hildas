@@ -19,7 +19,6 @@ public class PlayerMovement : MonoBehaviour {
 		}
 
 		if (Input.GetButton ("Vertical") && Input.GetAxis("Vertical") > 0) {
-			var angle = transform.rotation.z;
 			transform.Translate(0, SPEED * Time.deltaTime, 0);
 
 			CurrentSpeed = SPEED;
