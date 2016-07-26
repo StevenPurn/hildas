@@ -8,8 +8,8 @@ public class GameControl : MonoBehaviour {
 		EnemySpawner = new EnemySpawner
 		{
 			Camera = GameObject.Find("Main Camera").GetComponent<Camera>(),
-			EnemyPrefab = (GameObject)Resources.Load("/Prefabs/Enemy")
-    };
+			EnemyPrefab = (GameObject)Resources.Load("Prefabs/Enemy")
+        };
 	}
 
 	// Update is called once per frame
