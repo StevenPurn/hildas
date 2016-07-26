@@ -9,7 +9,9 @@ public class EnemySpawner {
     private enum Sides {Top = 1, Bottom, Left, Right};
 
     public EnemySpawner()
-    { }
+    {
+        ResetSpawnTimer();
+    }
 	
 	// Update is called once per frame
 	public void Update () {
