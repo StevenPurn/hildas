@@ -11,6 +11,7 @@ public class Shooting : MonoBehaviour {
 	void Start () {
 		PlayerShip = GameObject.Find ("Spaceship");
 		currentShotTimer = shotTimer;
+        BulletObj = Resources.Load<GameObject>("Prefabs/Bullet");
 	}
 	
 	// Update is called once per frame

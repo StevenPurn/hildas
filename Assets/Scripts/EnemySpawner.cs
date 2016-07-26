@@ -29,24 +29,41 @@ public class EnemySpawner {
 	public void SpawnEnemies(){
 		var spawnLocation = (Sides)Random.Range (1, 5);
 		var worldSpacePosition = new Vector3();
+        var directionToMove = new Vector3();
 
 		switch (spawnLocation) {
 		case Sides.Top:
-			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),0,0));
+			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1, Camera.nearClipPlane));
+            worldSpacePosition += new Vector3(0, 1, 0);
+            directionToMove = Camera.ViewportToWorldPoint(new Vector3(.5f, .5f, 0f));
+            //directionToMove += new Vector3(Random.Range(-15f, 15f), -1, 0);
 			break;
 		case Sides.Right:
-			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(0,Random.Range(0f,1f),0));
-			break;
+			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(1,Random.Range(0f,1f), Camera.nearClipPlane));
+            worldSpacePosition += new Vector3(1, 0, 0);
+            directionToMove = Camera.ViewportToWorldPoint(new Vector3(.5f, .5f, 0f));
+            //directionToMove += new Vector3(-1, Random.Range(-15f, 15f), 0);
+            break;
 		case Sides.Bottom:
-			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),1,0));
-			break;
+			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(Random.Range(0f,1f),0, Camera.nearClipPlane));
+            worldSpacePosition += new Vector3(0, -1, 0);
+            directionToMove = Camera.ViewportToWorldPoint(new Vector3(.5f, .5f, 0f));
+            //directionToMove += new Vector3(Random.Range(-15f, 15f), 1, 0);
+            break;
 		case Sides.Left:
-			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(1,Random.Range(0f,1f),0));
-			break;
+			worldSpacePosition = Camera.ViewportToWorldPoint(new Vector3(0,Random.Range(0f,1f),Camera.nearClipPlane));
+            worldSpacePosition += new Vector3(-1, 0, 0);
+            directionToMove = Camera.ViewportToWorldPoint(new Vector3(.5f, .5f, 0f));
+            //directionToMove += new Vector3(1, Random.Range(-15f, 15f), 0);
+            break;
 		default:
 			break;
 		}
 
-		Object.Instantiate(EnemyPrefab, worldSpacePosition, Quaternion.identity);
+        worldSpacePosition.z = 0;
+
+		GameObject instantiatedEnemy = (GameObject)Object.Instantiate(EnemyPrefab, worldSpacePosition, Quaternion.Euler(0,0,Random.Range(0f,360f)));
+        instantiatedEnemy.GetComponent<EnemyMovement>().movementTarget = directionToMove;
+
 	}
 }
