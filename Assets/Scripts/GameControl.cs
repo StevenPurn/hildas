@@ -7,11 +7,11 @@ public class GameControl : MonoBehaviour {
 	void Start () {
 		EnemySpawner = new EnemySpawner
 		{
-			Camera = GameObject.Find("Main Camera").GetComponent<Camera>()a,
+			Camera = GameObject.Find("Main Camera").GetComponent<Camera>(),
 			EnemyPrefab = GameObject.Find("Enemy")
 		};
 	}
-	
+
 	// Update is called once per frame
 	void Update () {
 		EnemySpawner.Update();
