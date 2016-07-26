@@ -3,7 +3,7 @@
 public class PlayerMovement : MonoBehaviour {
 	public const float ROTATION_MULTIPLIER = 270f;
 	public const float ENGINE_FORCE = 100f;
-	public const float MAX_SPEED = 10f;
+	public const float MAX_SPEED = 7f;
 	public Vector2 CurrentVelocity = Vector2.zero;
 
 	void FixedUpdate () {

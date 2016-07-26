@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 
 public class Bullet : MonoBehaviour {
-	static float SPEED = 8f;
+	static float SPEED = 14f;
 	static float LIFETIME = 4f;
 	static int DAMAGE = 10;
 
