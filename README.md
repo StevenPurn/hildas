@@ -6,4 +6,7 @@ Cool game and stuff.
 
 ## TODO
 
-- [ ] THING
+- [ ] Make player wrap around screen
+- [ ] Fix smaller asteroid spawns
+- [ ] Add artwork
+- [ ] FUCKING PARTICLES FOR THE SHIP
