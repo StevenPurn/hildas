@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 public class Shooting : MonoBehaviour {
 	public GameObject BulletObj;
@@ -21,10 +20,10 @@ public class Shooting : MonoBehaviour {
 
 		if (currentShotTimer <= 0) {
 			if (Input.GetButton ("Fire1")) {
-				var shipSpeed = PlayerShip.GetComponent<PlayerMovement> ().CurrentSpeed;
+				var shipVelocity = PlayerShip.GetComponent<PlayerMovement>().CurrentVelocity;
 				var bullet = (GameObject)Instantiate (BulletObj, gameObject.transform.position, gameObject.transform.rotation);
 
-				bullet.GetComponent<Bullet> ().SetPlayerShipSpeed (shipSpeed);
+				bullet.GetComponent<Bullet>().SetPlayerShipVelocity(shipVelocity);
 
 				currentShotTimer = shotTimer;
 			}
