@@ -2,6 +2,7 @@
 
 public class Health : MonoBehaviour {
 
+    public bool isSmall = false;
 	public int currentHealth = 20;
     private Vector3 instantiatedScale = new Vector3(0.5f, 0.5f, 0.5f);
 
@@ -22,15 +23,17 @@ public class Health : MonoBehaviour {
 	}
 
 	public void Death(){
-
-         for(var i = 0; i<4; i++)
+        if (!isSmall)
         {
-            GameObject instantiatedAsteroid = (GameObject)Instantiate(Resources.Load("Prefabs/Enemy"), transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
-            instantiatedAsteroid.transform.localScale = instantiatedScale;
-            instantiatedAsteroid.GetComponent<EnemyMovement>().movementTarget = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f,5f));
+            for (var i = 0; i < 4; i++)
+            {
+                GameObject instantiatedAsteroid = (GameObject)Instantiate(Resources.Load("Prefabs/Enemy"), transform.position, Quaternion.Euler(0, 0, Random.Range(0f, 360f)));
+                instantiatedAsteroid.transform.localScale = instantiatedScale;
+                instantiatedAsteroid.GetComponent<Health>().isSmall = true;
+                instantiatedAsteroid.GetComponent<EnemyMovement>().movementTarget = new Vector2(Random.Range(-5f, 5f), Random.Range(-5f, 5f));
+            }
         }
-
-
+        
 		Destroy (gameObject);
 	}
 }
