@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using System.Collections;
 
 public class PlayerMovement : MonoBehaviour {
 	public const float ROTATION_MULTIPLIER = 270f;
@@ -7,12 +8,14 @@ public class PlayerMovement : MonoBehaviour {
 	public Vector2 CurrentVelocity = Vector2.zero;
     private ParticleSystem thrusterParticles;
     private ParticleSystem.EmissionModule em;
+    private GameObject gameManager;
 
     void Start()
     {
-        thrusterParticles = GameObject.Find("thrusterParticles").GetComponent<ParticleSystem>();
+        thrusterParticles = transform.FindChild("thrusterParticles").GetComponent<ParticleSystem>();
         em = thrusterParticles.emission;
         em.enabled = false;
+        gameManager = GameObject.Find("GameManager");
     }
 
 	void FixedUpdate () {
@@ -34,4 +37,15 @@ public class PlayerMovement : MonoBehaviour {
 
 		CurrentVelocity = rigidBody.velocity;
 	}
+
+    void OnTriggerEnter2D(Collider2D other)
+    {
+        if(other.tag == "Enemy")
+        {
+            other.GetComponent<Health>().Death();
+            gameManager.GetComponent<PlayerManager>().DecreaseLives();
+            SendMessageUpwards("RespawnPlayer");
+            this.gameObject.SetActive(false);
+        }
+    }
 }
