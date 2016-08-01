@@ -8,7 +8,7 @@ public class Shooting : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		PlayerShip = GameObject.Find ("Spaceship");
+		PlayerShip = transform.parent.parent.gameObject;
 		currentShotTimer = shotTimer;
         BulletObj = Resources.Load<GameObject>("Prefabs/Bullet");
 	}

@@ -43,7 +43,7 @@ public class PlayerMovement : MonoBehaviour {
         if(other.tag == "Enemy")
         {
             other.GetComponent<Health>().Death();
-            gameManager.GetComponent<PlayerManager>().DecreaseLives();
+            GameObject.Find("PlayerObject").GetComponent<PlayerManager>().DecreaseLives();
             SendMessageUpwards("RespawnPlayer");
             this.gameObject.SetActive(false);
         }
