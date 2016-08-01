@@ -43,10 +43,7 @@ public class PlayerManager : MonoBehaviour {
                 pos.y <= bottomRight.y - WIGGLE_ROOM
             )
             {
-                //Debug.Log("DESTROY");
-                //Debug.Log(spaceships);
                 spaceships.Remove(spaceship);
-                //Debug.Log(spaceships);
                 Destroy(spaceship);
             }
         }
@@ -152,5 +149,24 @@ public class PlayerManager : MonoBehaviour {
         {
             Debug.Log("YOU DONE AND ALSO YOU SUCK YOU ARE LITERALLY THE WORST");
         }
+    }
+
+    public void RespawnPlayer()
+    {
+        foreach (GameObject spaceship in new List<GameObject>(spaceships))
+        {
+            //spaceship.transform.parent = null;
+            Destroy(spaceship);
+        }
+
+        spaceships.Clear();
+        StartCoroutine(SpawnDelay(2));
+    }
+
+
+    IEnumerator SpawnDelay(int secondsToWait)
+    {
+        yield return new WaitForSeconds(secondsToWait);
+        AddSpaceship(0, 0);
     }
 }
