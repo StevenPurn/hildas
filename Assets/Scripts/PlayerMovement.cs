@@ -8,7 +8,6 @@ public class PlayerMovement : MonoBehaviour {
 	public Vector2 CurrentVelocity = Vector2.zero;
     private ParticleSystem thrusterParticles;
     private ParticleSystem.EmissionModule em;
-    private GameObject gameManager;
     private static bool IS_INVINCIBLE;
 
     void Start()
@@ -16,7 +15,6 @@ public class PlayerMovement : MonoBehaviour {
         thrusterParticles = transform.FindChild("thrusterParticles").GetComponent<ParticleSystem>();
         em = thrusterParticles.emission;
         em.enabled = false;
-        gameManager = GameObject.Find("GameManager");
 
     }
 
@@ -49,6 +47,7 @@ public class PlayerMovement : MonoBehaviour {
                 other.GetComponent<Health>().Death();
                 GameObject.Find("PlayerObject").GetComponent<PlayerManager>().DecreaseLives();
                 SendMessageUpwards("RespawnPlayer");
+                GameObject.Find("GameManager").GetComponent<LivesManager>().UpdateLives(-1);
                 this.gameObject.SetActive(false);
             }
         }

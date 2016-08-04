@@ -26,6 +26,7 @@ public class Bullet : MonoBehaviour {
 		if (other.tag == "Enemy") {
 			other.GetComponent<Health> ().TakeDamage (DAMAGE);
             GameObject.Find("Main Camera").GetComponent<CameraShake>().SetShake();
+            GameObject.Find("GameManager").GetComponent<ScoreManager>().ChangeScore(10);
             Destroy (gameObject);
 		}
 	}
