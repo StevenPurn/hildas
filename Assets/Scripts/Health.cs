@@ -35,7 +35,9 @@ public class Health : MonoBehaviour {
             CreateChildAsteroid(AsteriodSize.small);
         }
 
-        
+        GameObject particles = (GameObject)Resources.Load("Prefabs/AsteroidExplosion");
+
+        Destroy(GameObject.Instantiate(particles, transform.position, Quaternion.identity),.5f);
 		Destroy (gameObject);
 	}
 

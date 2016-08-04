@@ -25,7 +25,8 @@ public class Bullet : MonoBehaviour {
 	void OnTriggerEnter2D(Collider2D other){
 		if (other.tag == "Enemy") {
 			other.GetComponent<Health> ().TakeDamage (DAMAGE);
-			Destroy (gameObject);
+            GameObject.Find("Main Camera").GetComponent<CameraShake>().SetShake();
+            Destroy (gameObject);
 		}
 	}
 }

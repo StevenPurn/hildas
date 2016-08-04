@@ -9,6 +9,7 @@ public class PlayerMovement : MonoBehaviour {
     private ParticleSystem thrusterParticles;
     private ParticleSystem.EmissionModule em;
     private GameObject gameManager;
+    private static bool IS_INVINCIBLE;
 
     void Start()
     {
@@ -16,6 +17,7 @@ public class PlayerMovement : MonoBehaviour {
         em = thrusterParticles.emission;
         em.enabled = false;
         gameManager = GameObject.Find("GameManager");
+
     }
 
 	void FixedUpdate () {
@@ -40,12 +42,20 @@ public class PlayerMovement : MonoBehaviour {
 
     void OnTriggerEnter2D(Collider2D other)
     {
-        if(other.tag == "Enemy")
+        if (!IS_INVINCIBLE)
         {
-            other.GetComponent<Health>().Death();
-            GameObject.Find("PlayerObject").GetComponent<PlayerManager>().DecreaseLives();
-            SendMessageUpwards("RespawnPlayer");
-            this.gameObject.SetActive(false);
+            if (other.tag == "Enemy")
+            {
+                other.GetComponent<Health>().Death();
+                GameObject.Find("PlayerObject").GetComponent<PlayerManager>().DecreaseLives();
+                SendMessageUpwards("RespawnPlayer");
+                this.gameObject.SetActive(false);
+            }
         }
+    }
+
+    public void SetInvincibility(bool invincibility)
+    {
+        IS_INVINCIBLE = invincibility;
     }
 }
