@@ -32,6 +32,13 @@ public class TempInvincibility : MonoBehaviour {
         }else
         {
             gameObject.GetComponent<PlayerMovement>().SetInvincibility(false);
+
+            Renderer[] r = GetComponentsInChildren<Renderer>();
+
+            foreach (Renderer i in r)
+            {
+                i.enabled = true;
+            }
             Destroy(this);
         }
 	}
