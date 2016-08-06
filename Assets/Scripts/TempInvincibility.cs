@@ -7,8 +7,8 @@ public class TempInvincibility : MonoBehaviour {
     private static float INVOKE_TIMER = 0.25f;
     private static float invincibilityTime;
     private static float invokeTimer;
-	// Use this for initialization
-	void Start () {
+
+	public void Reset () {
         invincibilityTime = INVINCIBLE_TIMER;
         invokeTimer = INVOKE_TIMER;
         gameObject.GetComponent<PlayerMovement>().SetInvincibility(true);

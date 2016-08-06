@@ -121,6 +121,11 @@ public class PlayerManager : MonoBehaviour {
 
         spaceships.Add(spaceship);
 
+        if (x == 0 && y == 0)
+        {
+            spaceship.GetComponent<TempInvincibility>().Reset();
+        }
+
     }
 
     static public Vector2 GetViewportTopLeft()
