@@ -7,7 +7,7 @@ public class Shooting : MonoBehaviour
 
     void Start()
     {
-        PlayerShip = transform.parent.parent.gameObject;
+        PlayerShip = transform.parent.gameObject;
         BulletObj = Resources.Load<GameObject>("Prefabs/Bullet");
     }
 
