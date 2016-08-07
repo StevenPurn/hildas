@@ -7,6 +7,7 @@ public class TempInvincibility : MonoBehaviour
     public Func<bool> IsInvincible;
     private const float INVOKE_TIMER = 0.25f;
     private static float invokeTimer;
+    private SpriteRenderer[] r;
 
     public void Reset()
     {
@@ -16,6 +17,7 @@ public class TempInvincibility : MonoBehaviour
     void Start()
     {
         gameObject.GetComponent<BoxCollider2D>().enabled = false;
+        r = GetComponentsInChildren<SpriteRenderer>();
     }
 
     void Update()
@@ -29,7 +31,12 @@ public class TempInvincibility : MonoBehaviour
                 FlashPlayer();
             }
         }
-        else {
+        else { 
+            foreach (SpriteRenderer i in r)
+            {
+                i.color = new Color(1, 1, 1, 1);
+            }
+
             gameObject.GetComponent<BoxCollider2D>().enabled = true;
             Destroy(this);
         }
@@ -37,11 +44,15 @@ public class TempInvincibility : MonoBehaviour
 
     void FlashPlayer()
     {
-        Renderer[] r = GetComponentsInChildren<Renderer>();
-
-        foreach (Renderer i in r)
+        foreach (SpriteRenderer i in r)
         {
-            i.enabled = !i.enabled;
+            if (i.color.a == 1)
+            {
+                i.color = new Color(1, 1, 1, 0.5f);
+            }else
+            {
+                i.color = new Color(1, 1, 1, 1);
+            }
         }
     }
 }
