@@ -1,56 +1,47 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using System.Collections;
 
-public class TempInvincibility : MonoBehaviour {
-
-    private static float INVINCIBLE_TIMER = 3.0f;
-    private static float INVOKE_TIMER = 0.25f;
-    private static float invincibilityTime;
+public class TempInvincibility : MonoBehaviour
+{
+    public Func<bool> IsInvincible;
+    private const float INVOKE_TIMER = 0.25f;
     private static float invokeTimer;
 
-	public void Reset () {
-        invincibilityTime = INVINCIBLE_TIMER;
+    public void Reset()
+    {
         invokeTimer = INVOKE_TIMER;
-        gameObject.GetComponent<PlayerMovement>().SetInvincibility(true);
-	}
-	
-	// Update is called once per frame
-	void Update () {
+    }
 
-        invokeTimer -= Time.deltaTime; 
+    void Start()
+    {
+        gameObject.GetComponent<BoxCollider2D>().enabled = false;
+    }
 
-	    if(invincibilityTime >= 0)
-        {
-            invincibilityTime -= Time.deltaTime;
+    void Update()
+    {
+        invokeTimer -= Time.deltaTime;
 
+        if (IsInvincible()) {
             if (invokeTimer <= 0)
             {
                 invokeTimer = INVOKE_TIMER;
                 FlashPlayer();
             }
-
-        }else
-        {
-            gameObject.GetComponent<PlayerMovement>().SetInvincibility(false);
-
-            Renderer[] r = GetComponentsInChildren<Renderer>();
-
-            foreach (Renderer i in r)
-            {
-                i.enabled = true;
-            }
+        }
+        else {
+            gameObject.GetComponent<BoxCollider2D>().enabled = true;
             Destroy(this);
         }
-	}
+    }
 
     void FlashPlayer()
     {
         Renderer[] r = GetComponentsInChildren<Renderer>();
 
-        foreach  (Renderer i in r)
+        foreach (Renderer i in r)
         {
             i.enabled = !i.enabled;
         }
-
     }
 }

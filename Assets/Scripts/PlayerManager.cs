@@ -2,7 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class PlayerManager : MonoBehaviour {
+public class PlayerManager : MonoBehaviour
+{
+    private static float INVINCIBLE_TIMER = 3.0f;
+
     public int currentLives;
     public List<GameObject> spaceships = new List<GameObject>();
     public const float WIGGLE_ROOM = 2;
@@ -11,6 +14,7 @@ public class PlayerManager : MonoBehaviour {
     private Vector2 bottomRight;
     private float worldWidth;
     private float worldHeight;
+    public bool isInvincible;
 
 	// Use this for initialization
 	void Start () {
@@ -20,8 +24,8 @@ public class PlayerManager : MonoBehaviour {
 	}
 
     void Update() {
-        topLeft = GetViewportTopLeft();
-        bottomRight = GetViewportBottomRight();
+        topLeft = ViewportUtility.GetViewportTopLeft();
+        bottomRight = ViewportUtility.GetViewportBottomRight();
    
         worldWidth = bottomRight.x - topLeft.x;
         worldHeight = topLeft.y - bottomRight.y;
@@ -107,9 +111,11 @@ public class PlayerManager : MonoBehaviour {
     }
 
     void AddSpaceship(float x, float y)
-    {
-
+    { 
         var spaceship = (GameObject)Object.Instantiate(spaceshipPrefab);
+        spaceship.GetComponent<PlayerMovement>().IsInvincible = () => this.isInvincible;
+        spaceship.GetComponent<TempInvincibility>().IsInvincible = () => this.isInvincible;
+
         spaceship.transform.SetParent(this.transform);
         spaceship.transform.position = new Vector3(x, y, 0);
         if (spaceships.Count > 0)
@@ -121,25 +127,10 @@ public class PlayerManager : MonoBehaviour {
 
         spaceships.Add(spaceship);
 
-        if (x == 0 && y == 0)
+        if (isInvincible)
         {
             spaceship.GetComponent<TempInvincibility>().Reset();
         }
-
-    }
-
-    static public Vector2 GetViewportTopLeft()
-    {
-        Vector3 worldPoint = Camera.main.ViewportToWorldPoint(new Vector3(0, 1, 0));
-
-        return new Vector2(worldPoint.x, worldPoint.y);
-    }
-
-    static public Vector2 GetViewportBottomRight()
-    {
-        Vector3 worldPoint = Camera.main.ViewportToWorldPoint(new Vector3(1, 0, 0));
-
-        return new Vector2(worldPoint.x, worldPoint.y);
     }
 
     public void IncreaseLives()
@@ -160,7 +151,6 @@ public class PlayerManager : MonoBehaviour {
     {
         foreach (GameObject spaceship in new List<GameObject>(spaceships))
         {
-            //spaceship.transform.parent = null;
             Destroy(spaceship);
         }
 
@@ -172,6 +162,9 @@ public class PlayerManager : MonoBehaviour {
     IEnumerator SpawnDelay(int secondsToWait)
     {
         yield return new WaitForSeconds(secondsToWait);
+        isInvincible = true;
         AddSpaceship(0, 0);
+        yield return new WaitForSeconds(INVINCIBLE_TIMER);
+        isInvincible = false;
     }
 }
