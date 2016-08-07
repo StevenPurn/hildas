@@ -7,10 +7,12 @@ public class EnemySpawner {
 	public const int ENEMY_SPAWN_MIN = 2;
 	public const int ENEMY_SPAWN_MAX = 5;
     private enum Sides {Top = 1, Bottom, Left, Right};
+    private float[] asteroidRadiuses = {0.5f,0.55f,0.445f,0.49f };
 
     public EnemySpawner()
     {
         ResetSpawnTimer();
+
     }
 	
 	// Update is called once per frame
@@ -64,6 +66,10 @@ public class EnemySpawner {
 
 		GameObject instantiatedEnemy = (GameObject)Object.Instantiate(EnemyPrefab, worldSpacePosition, Quaternion.Euler(0,0,Random.Range(0f,360f)));
         instantiatedEnemy.GetComponent<EnemyMovement>().movementTarget = directionToMove;
+        int rand = Random.Range(1, 5);
+        Texture2D spr = (Texture2D)Resources.Load("Prefabs/Enemies" + rand.ToString());
+        instantiatedEnemy.GetComponent<SpriteRenderer>().sprite = Sprite.Create(spr,new Rect(0,0,spr.width,spr.height),new Vector2(0.5f,0.5f));
+        instantiatedEnemy.GetComponent<CircleCollider2D>().radius = asteroidRadiuses[rand-1];
 
 	}
 }
