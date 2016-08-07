@@ -143,7 +143,7 @@ public class PlayerManager : MonoBehaviour
         currentLives -= 1;
         if(currentLives <= 0)
         {
-            Debug.Log("YOU DONE AND ALSO YOU SUCK YOU ARE LITERALLY THE WORST");
+            GameObject.Find("GameManager").GetComponent<GameControl>().GameOver();
         }
     }
 
@@ -155,7 +155,10 @@ public class PlayerManager : MonoBehaviour
         }
 
         spaceships.Clear();
-        StartCoroutine(SpawnDelay(2));
+        if(currentLives > 0)
+        {
+            StartCoroutine(SpawnDelay(2));
+        }
     }
 
 

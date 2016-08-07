@@ -4,7 +4,7 @@ using System.Collections;
 public class CameraShake : MonoBehaviour {
 
     private const float SHAKE_DURATION = 0.3f;
-    private const float SHAKE_INTENSITY = .2f;
+    private const float SHAKE_INTENSITY = .1f;
     private float shakeDuration;
 
 	// Use this for initialization

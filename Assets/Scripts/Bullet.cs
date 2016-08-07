@@ -32,7 +32,7 @@ public class Bullet : MonoBehaviour
         {
             other.GetComponent<Health>().TakeDamage(DAMAGE);
             GameObject.Find("Main Camera").GetComponent<CameraShake>().SetShake();
-            GameObject.Find("GameManager").GetComponent<ScoreManager>().ChangeScore(10);
+            GameObject.Find("Score Manager").GetComponent<ScoreManager>().ChangeScore(10);
             Destroy(gameObject);
         }
     }

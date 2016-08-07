@@ -15,4 +15,13 @@ public class EnemyMovement : MonoBehaviour
         SPEED = Random.Range(2f, 5f);
         rigidBody.AddForce(new Vector2(SPEED * (movementTarget.x - transform.position.x), SPEED * (movementTarget.y - transform.position.y)), ForceMode2D.Force);
     }
+
+    void Update()
+    {
+        if (!ViewportUtility.IsInView(transform.position))
+        {
+            
+        }
+    }
+
 }
