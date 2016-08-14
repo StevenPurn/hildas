@@ -4,7 +4,7 @@ using System.Collections;
 public class BackgroundScaling : MonoBehaviour {
 
 	// Use this for initialization
-	void Start () {
+	void FixedUpdate () {
         ResizeSprite();
 	}
 	
