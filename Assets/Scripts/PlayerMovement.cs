@@ -14,7 +14,7 @@ public class PlayerMovement : MonoBehaviour
 
     void Start()
     {
-        thrusterParticles = transform.FindChild("thrusterParticles").GetComponent<ParticleSystem>();
+        thrusterParticles = transform.Find("thrusterParticles").GetComponent<ParticleSystem>();
         em = thrusterParticles.emission;
         em.enabled = false;
     }

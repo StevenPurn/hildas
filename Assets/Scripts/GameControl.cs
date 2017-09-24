@@ -46,6 +46,7 @@ public class GameControl : MonoBehaviour {
         string highScore = GameObject.Find("Score Manager").GetComponent<ScoreManager>().highScore.ToString();
         gameGUI.SetActive(false);
         gameOverGUI.SetActive(true);
+        ScoreManager.ResetScore();
         GameObject.Find("High Score Text").GetComponent<Text>().text = "High Score: " + highScore;
     }
 }
